@@ -2,17 +2,19 @@ import Int32 "mo:base/Int32";
 import Buffer "mo:base/Buffer";
 import Text "mo:base/Text";
 import Principal "mo:base/Principal";
+import Iter "mo:base/Iter";
 
 module Types {
     public type Opinion = Bool;
 
     public type ReviewCategory = Text;
     public let reviewCategoryList : [ReviewCategory] = ["original", "informative", "entertaining", "useful"];
-    public type CategoryCount = {
-        original : Int32;
-        informative : Int32;
-        entertaining : Int32;
-        useful : Int32;
+
+    public func getIndexOfCategory(category : Text) : ?Nat {
+        for (i in Iter.range(0, reviewCategoryList.size() - 1)) {
+            if (reviewCategoryList[i] == category) return ?i;
+        };
+        return null;
     };
 
     public type NormalReview = {

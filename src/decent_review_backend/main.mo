@@ -1,8 +1,8 @@
 import Text "mo:base/Text";
-import HashMap "mo:base/HashMap";
 import Buffer "mo:base/Buffer";
 import Iter "mo:base/Iter";
 import Principal "mo:base/Principal";
+import Array "mo:base/Array";
 import Types "./types";
 
 actor {
@@ -59,11 +59,7 @@ actor {
 
   public query func obtainReviewsOf(url : Text) : async Types.ReviewAggregation {
     var totalVotes : Int32 = 0;
-    let categoryCount = HashMap.HashMap<Types.ReviewCategory, Int32>(
-      Types.reviewCategoryList.size(),
-      Text.equal,
-      Text.hash,
-    );
+    let categoryCount = Array.init<Int32>(4, 0);
     let comments = Buffer.Buffer<Types.PremiumReview>(0);
 
     func aggregateNormalReview(review : Types.NormalReview) {
@@ -78,11 +74,12 @@ actor {
 
       totalVotes += vote;
 
-      let originalCategoryVotes : Int32 = switch (categoryCount.get(review.category)) {
-        case (?n) { n };
-        case null { 0 };
+      switch (Types.getIndexOfCategory(review.category)) {
+        case (?index) {
+          categoryCount[index] += 1;
+        };
+        case null {};
       };
-      let _ = categoryCount.replace(review.category, originalCategoryVotes + vote);
     };
 
     Buffer.iterate<Types.NormalReview>(
