@@ -1,6 +1,7 @@
 import Int32 "mo:base/Int32";
 import Buffer "mo:base/Buffer";
 import Text "mo:base/Text";
+import Principal "mo:base/Principal";
 
 module Types {
     public type Opinion = Bool;
@@ -16,7 +17,7 @@ module Types {
 
     public type NormalReview = {
         url : Text;
-        id : Text;
+        author : Principal;
         opinion : Opinion;
         category : ReviewCategory;
     };
@@ -35,4 +36,5 @@ module Types {
 
     public type NormalReviewDatabase = Buffer.Buffer<NormalReview>;
     public type PremiumReviewDatabase = Buffer.Buffer<PremiumReview>;
+    public type PremiumReviewers = Buffer.Buffer<Principal>;
 };
