@@ -31,7 +31,8 @@ module Types {
     };
 
     public type ReviewAggregation = {
-        totalVotes : Int32;
+        countedVotes : Int32;
+        totalVotes : Nat;
         categoryCount : [Int32];
         comments : [PremiumReview];
     };

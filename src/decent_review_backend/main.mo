@@ -58,12 +58,15 @@ actor {
   };
 
   public query func obtainReviewsOf(url : Text) : async Types.ReviewAggregation {
-    var totalVotes : Int32 = 0;
+    var countedVotes : Int32 = 0;
+    var totalVotes : Nat = 0;
     let categoryCount = Array.init<Int32>(4, 0);
     let comments = Buffer.Buffer<Types.PremiumReview>(0);
 
     func aggregateNormalReview(review : Types.NormalReview) {
       if (review.url != url) return;
+
+      totalVotes += 1;
 
       var vote : Int32 = 0;
       if (review.opinion) {
@@ -72,7 +75,7 @@ actor {
         vote := -1;
       };
 
-      totalVotes += vote;
+      countedVotes += vote;
 
       switch (Types.getIndexOfCategory(review.category)) {
         case (?index) {
@@ -100,7 +103,8 @@ actor {
     );
 
     {
-      totalVotes = totalVotes;
+      countedVotes;
+      totalVotes;
       categoryCount = Iter.toArray<Int32>(categoryCount.vals());
       comments = Buffer.toArray<Types.PremiumReview>(comments);
     };
