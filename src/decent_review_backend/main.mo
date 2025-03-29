@@ -14,7 +14,7 @@ actor {
     msg.caller;
   };
 
-  public shared (msg) func createNormalReview(review : Types.NormalReview) {
+  public shared (msg) func createNormalReview(review : Types.NormalReviewRequest) {
     normalReviewsDB.add({
       url = review.url;
       author = msg.caller;

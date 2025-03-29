@@ -17,6 +17,11 @@ module Types {
         return null;
     };
 
+    public type NormalReviewRequest = {
+        url : Text;
+        opinion : Opinion;
+        category : ReviewCategory;
+    };
     public type NormalReview = {
         url : Text;
         author : Principal;
