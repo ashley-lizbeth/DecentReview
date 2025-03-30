@@ -1,6 +1,15 @@
-# `decent_review`
+# DecentReview
+Astro-Hackhathon ICP blockchain prototype
+Welcome to DecentReview, a project for the Transparency Track at the Astro-Hackathon.
 
-Welcome to your new `decent_review` project and to the Internet Computer development community. By default, creating a new project adds this README and some template files to your project directory. You can edit these template files to customize your project and to include your own code to speed up the development cycle.
+Our goal is to build a decentralized, censorship-resistant platform where anonymous users can review and rate any website. By leveraging Internet Computer (ICP) blockchain technology, we ensure that all feedback remains immutable, transparent, and publicly accessible.
+
+
+🔹 Fully anonymous user reviews
+🔹 Immutable and verifiable ratings stored on-chain
+🔹 No central authority, no censorship
+
+Join us in shaping the future of decentralized web reviews!
 
 To get started, you might want to explore the project directory structure and the default configuration file. Working with this project in your development environment will not affect any production deployment or identity tokens.
 

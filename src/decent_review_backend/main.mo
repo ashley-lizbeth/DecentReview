@@ -14,6 +14,16 @@ actor {
     msg.caller;
   };
 
+  public shared (msg) func upgradeToPremium() : async Text {
+    if (isPremiumReviewer(msg.caller)) {
+        return "Ya eres un usuario Premium.";
+    };
+    
+    premiumReviewersDB.add(msg.caller);
+    return "¡Ahora eres un usuario Premium!";
+  };
+
+
   public shared (msg) func createNormalReview(review : Types.NormalReviewRequest) {
     normalReviewsDB.add({
       url = review.url;
@@ -39,8 +49,13 @@ actor {
     isPremiumReviewer(msg.caller);
   };
 
-  public shared (msg) func createPremiumReview(review : Types.PremiumReview) {
-    if (isPremiumReviewer(msg.caller)) premiumReviewsDB.add(review);
+  public shared (msg) func createPremiumReview(review : Types.PremiumReview) : async Text {
+    if (isPremiumReviewer(msg.caller)) {
+        premiumReviewsDB.add(review);
+        return "Reseña premium agregada.";
+    } else {
+        return "No tienes acceso a las reseñas premium.";
+    };
   };
 
   public query (msg) func getReviewOf(url : Text) : async ?Types.Opinion {
