@@ -19,7 +19,7 @@ actor {
       url = review.url;
       author = msg.caller;
       opinion = review.opinion;
-      category = review.category;
+      categories = review.categories;
     });
   };
 
@@ -58,31 +58,26 @@ actor {
   };
 
   public query func obtainReviewsOf(url : Text) : async Types.ReviewAggregation {
-    var countedVotes : Int32 = 0;
-    var totalVotes : Nat = 0;
-    let categoryCount = Array.init<Int32>(4, 0);
+    var likes : Nat = 0;
+    var dislikes : Nat = 0;
+    let categoryCount = Array.init<Int32>(Types.reviewCategoryList.size() * 2, 0);
     let comments = Buffer.Buffer<Types.PremiumReview>(0);
 
     func aggregateNormalReview(review : Types.NormalReview) {
       if (review.url != url) return;
 
-      totalVotes += 1;
-
-      var vote : Int32 = 0;
+      var categoryIndex : Nat = 0;
       if (review.opinion) {
-        vote := 1;
+        likes += 1;
       } else {
-        vote := -1;
+        dislikes += 1;
+        categoryIndex += Types.reviewCategoryList.size();
       };
 
-      countedVotes += vote;
-
-      switch (Types.getIndexOfCategory(review.category)) {
-        case (?index) {
-          categoryCount[index] += 1;
-        };
-        case null {};
+      for (index in review.categories.vals()) {
+        categoryCount[index + categoryIndex] += 1;
       };
+
     };
 
     Buffer.iterate<Types.NormalReview>(
@@ -103,8 +98,8 @@ actor {
     );
 
     {
-      countedVotes;
-      totalVotes;
+      likes;
+      dislikes;
       categoryCount = Iter.toArray<Int32>(categoryCount.vals());
       comments = Buffer.toArray<Types.PremiumReview>(comments);
     };
