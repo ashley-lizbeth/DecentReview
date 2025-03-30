@@ -3,6 +3,7 @@ import Buffer "mo:base/Buffer";
 import Iter "mo:base/Iter";
 import Principal "mo:base/Principal";
 import Array "mo:base/Array";
+import Time "mo:base/Time";
 import Types "./types";
 
 actor {
@@ -30,6 +31,7 @@ actor {
       author = msg.caller;
       opinion = review.opinion;
       category = review.category;
+      timestamp = Time.now();
     });
   };
 
@@ -124,4 +126,3 @@ actor {
       comments = Buffer.toArray<Types.PremiumReview>(comments);
     };
   };
-};
