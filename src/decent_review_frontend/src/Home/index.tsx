@@ -1,5 +1,6 @@
 import "./home.css";
 import Header from "../components/header";
+import { NavLink } from "react-router";
 
 function Home() {
 	return (
@@ -12,20 +13,11 @@ function Home() {
 
 				<section id="content">
 					<article className="Reviews">
-						<h2>Top reviews this week</h2>
+						<h2>Tendencias este dia</h2>
 
 						<hr />
 
-						<p>La pagina mas polemica del momento</p>
-
 						<div className="review-item">
-							<img
-								src="Images/Telcel.png"
-								alt="Telcel Review"
-								width="100"
-								style={{ borderRadius: "10px", marginRight: "10px" }}
-							/>
-
 							<div className="review-text">
 								<h4>Telcel: Problemas de conexión</h4>
 
@@ -34,20 +26,13 @@ function Home() {
 									¿Qué está pasando?
 								</p>
 
-								<a href="review.html" className="read-more">
+								<NavLink to="/review/www.telcel.com/" className="read-more">
 									Leer más
-								</a>
+								</NavLink>
 							</div>
 						</div>
 
 						<div className="review-item">
-							<img
-								src="Images/Netflix.png"
-								alt="Netflix Review"
-								width="100"
-								style={{ borderRadius: "10px", marginRight: "10px" }}
-							/>
-
 							<div className="review-text">
 								<h4>Netflix: Nueva política de precios</h4>
 
@@ -56,9 +41,9 @@ function Home() {
 									entre los usuarios.
 								</p>
 
-								<a href="review.html" className="read-more">
+								<NavLink to="/review/www.netflix.com/" className="read-more">
 									Leer más
-								</a>
+								</NavLink>
 							</div>
 						</div>
 					</article>
