@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 const likesData = await obtenerLikes(currentUrl);
 
                 if (!likesData || (likesData[0] === 0 && likesData[1] === 0)) {
-                    document.getElementById("messageStatus").textContent = "❌ No encontrado";
+                    document.getElementById("messageStatus").textContent = "No encontrado";
                     document.getElementById("messageStatus").style.color = "gray";
                     document.getElementById("ratingSection").style.display = "block"; 
                     document.getElementById("detailsSection").style.display = "none";  
