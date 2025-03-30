@@ -1,0 +1,81 @@
+.p-3 {
+	background-color: #262626;
+
+	border-radius: 10px;
+
+	margin: 10px;
+}
+
+.nav-link {
+	color: white;
+
+	text-decoration: none;
+
+	padding-right: 40px;
+
+	font-size: 20px;
+
+	filter: invert(100%) brightness(1000%);
+}
+
+.nav {
+	display: flex;
+
+	flex-direction: row;
+
+	list-style: none;
+
+	padding-bottom: 20px;
+
+	margin: 0;
+}
+
+.form-control-header {
+	border-radius: 10px;
+
+	height: 40px;
+
+	width: 500px;
+}
+
+.text-end {
+	position: absolute;
+
+	display: flex;
+
+	top: 40px;
+
+	right: 10px;
+}
+
+.btn-outline-light {
+	margin-right: 10px;
+
+	border-radius: 5px;
+
+	width: 70px;
+
+	height: 30px;
+
+	background-color: transparent;
+
+	color: white;
+
+	border-color: white;
+}
+
+.btn-warning {
+	background-color: white;
+
+	color: #262626;
+
+	border-radius: 5px;
+
+	width: 70px;
+
+	height: 30px;
+
+	border-color: white;
+
+	margin-right: 10px;
+}

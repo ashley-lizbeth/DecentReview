@@ -20,13 +20,13 @@ module Types {
     public type NormalReviewRequest = {
         url : Text;
         opinion : Opinion;
-        category : ReviewCategory;
+        categories : [Nat];
     };
     public type NormalReview = {
         url : Text;
         author : Principal;
         opinion : Opinion;
-        category : ReviewCategory;
+        categories : [Nat];
     };
 
     public type PremiumReview = {
@@ -36,8 +36,8 @@ module Types {
     };
 
     public type ReviewAggregation = {
-        countedVotes : Int32;
-        totalVotes : Nat;
+        likes : Nat;
+        dislikes : Nat;
         categoryCount : [Int32];
         comments : [PremiumReview];
     };
