@@ -8,12 +8,14 @@
 
 .nav-link {
 	color: white;
-
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	text-decoration: none;
 
 	padding-right: 40px;
 
-	font-size: 20px;
+	font-size: x-large;
 
 	filter: invert(100%) brightness(1000%);
 }
@@ -21,11 +23,15 @@
 .nav {
 	display: flex;
 
+	justify-content: space-around;
+	align-content: center;
+
 	flex-direction: row;
 
 	list-style: none;
 
 	padding-bottom: 20px;
+	padding-top: 20px;
 
 	margin: 0;
 }
@@ -38,30 +44,21 @@
 	width: 500px;
 }
 
-.text-end {
-	position: absolute;
-
-	display: flex;
-
-	top: 40px;
-
-	right: 10px;
-}
-
 .btn-outline-light {
 	margin-right: 10px;
 
 	border-radius: 5px;
-
-	width: 70px;
-
-	height: 30px;
 
 	background-color: transparent;
 
 	color: white;
 
 	border-color: white;
+	transition: all 200ms ease-in-out;
+	.hover {
+		background-color: white;
+		color: black;
+	}
 }
 
 .btn-warning {

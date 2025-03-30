@@ -12,12 +12,8 @@ export default function Header() {
 		<header className="p-3 bg-dark text-white position-fixed top-0 w-100 shadow">
 			<div className="container">
 				<div className="d-flex flex-wrap align-items-center justify-content-between">
-					<a href="/">
-						<svg className="bi me-2" width="40" height="20" role="img"></svg>
-					</a>
-
 					<ul className="nav">
-						<li>
+						<li className="nav-link">
 							<NavLink to={"/"}>DecentReviews</NavLink>
 						</li>
 
@@ -29,27 +25,26 @@ export default function Header() {
 									navigate(`/review/${query}`);
 								}}
 							>
-								<input
-									type="search"
-									className="form-control-header"
-									placeholder="Search page"
-									aria-label="Search"
-									value={query}
-									onChange={(e) => setQuery(e.target.value)}
-								/>
-								<button
-									dangerouslySetInnerHTML={{
-										__html: feather.icons.search.toSvg(),
-									}}
-								/>
+								<div style={{ display: "flex", gap: "4px" }}>
+									<input
+										type="search"
+										className="form-control-header"
+										placeholder="Search page"
+										aria-label="Search"
+										value={query}
+										onChange={(e) => setQuery(e.target.value)}
+									/>
+									<button
+										dangerouslySetInnerHTML={{
+											__html: feather.icons.search.toSvg(),
+										}}
+									/>
+								</div>
 							</form>
 						</li>
-					</ul>
-
-					<div className="text-end">
 						<button
 							type="button"
-							className="btn btn-outline-light me-2"
+							className="btn btn-outline-light "
 							onClick={async (e) => {
 								e.preventDefault();
 								await LoginWithInternetIdentity();
@@ -57,7 +52,7 @@ export default function Header() {
 						>
 							Iniciar sesion
 						</button>
-					</div>
+					</ul>
 				</div>
 			</div>
 		</header>
