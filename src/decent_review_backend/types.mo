@@ -3,6 +3,7 @@ import Buffer "mo:base/Buffer";
 import Text "mo:base/Text";
 import Principal "mo:base/Principal";
 import Iter "mo:base/Iter";
+import Time "mo:base/Time";
 
 module Types {
     public type Opinion = Bool;
@@ -27,6 +28,7 @@ module Types {
         author : Principal;
         opinion : Opinion;
         categories : [Nat];
+        timestamp : Time.Time;
     };
 
     public type PremiumReview = {

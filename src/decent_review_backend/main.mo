@@ -3,6 +3,7 @@ import Buffer "mo:base/Buffer";
 import Iter "mo:base/Iter";
 import Principal "mo:base/Principal";
 import Array "mo:base/Array";
+import Time "mo:base/Time";
 import Types "./types";
 
 actor {
@@ -16,13 +17,12 @@ actor {
 
   public shared (msg) func upgradeToPremium() : async Text {
     if (isPremiumReviewer(msg.caller)) {
-        return "Ya eres un usuario Premium.";
+      return "Ya eres un usuario Premium.";
     };
-    
+
     premiumReviewersDB.add(msg.caller);
     return "¡Ahora eres un usuario Premium!";
   };
-
 
   public shared (msg) func createNormalReview(review : Types.NormalReviewRequest) {
     normalReviewsDB.add({
@@ -30,6 +30,7 @@ actor {
       author = msg.caller;
       opinion = review.opinion;
       categories = review.categories;
+      timestamp = Time.now();
     });
   };
 
@@ -51,10 +52,10 @@ actor {
 
   public shared (msg) func createPremiumReview(review : Types.PremiumReview) : async Text {
     if (isPremiumReviewer(msg.caller)) {
-        premiumReviewsDB.add(review);
-        return "Reseña premium agregada.";
+      premiumReviewsDB.add(review);
+      return "Reseña premium agregada.";
     } else {
-        return "No tienes acceso a las reseñas premium.";
+      return "No tienes acceso a las reseñas premium.";
     };
   };
 
