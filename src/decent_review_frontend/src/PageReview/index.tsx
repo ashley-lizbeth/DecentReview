@@ -7,7 +7,6 @@ import { ReviewAggregation } from "../../../declarations/decent_review_backend/d
 import "./review.css";
 import Header from "../components/header";
 import { TailSpin } from "react-loader-spinner";
-import { p } from "react-router/dist/development/fog-of-war-BaM-ohjc";
 
 export default function PageReview() {
 	const navigate = useNavigate();
@@ -89,8 +88,8 @@ export default function PageReview() {
 									}}
 									dangerouslySetInnerHTML={{
 										__html: feather.icons["thumbs-up"].toSvg({
-											fill: opinion == true ? "green" : "white",
-											stroke: "green",
+											fill: opinion === true ? "green" : "white",
+											stroke: opinion === true ? "black" : "green",
 										}),
 									}}
 									disabled={!isLoggedIn || opinion == true}
@@ -105,8 +104,8 @@ export default function PageReview() {
 									}}
 									dangerouslySetInnerHTML={{
 										__html: feather.icons["thumbs-down"].toSvg({
-											fill: opinion == false ? "red" : "white",
-											stroke: "red",
+											fill: opinion === false ? "red" : "white",
+											stroke: opinion === false ? "black" : "red",
 										}),
 									}}
 									disabled={!isLoggedIn || opinion == false}
@@ -168,7 +167,11 @@ export default function PageReview() {
 						<div>
 							{isPremium ? (
 								opinion != null ? (
-									<NewCommentForm />
+									<NewCommentForm
+										url={url}
+										opinion
+										callback={() => navigate(0)}
+									/>
 								) : (
 									<p>Para comentar, por favor primero opina</p>
 								)
@@ -200,10 +203,31 @@ export default function PageReview() {
 	);
 }
 
-function NewCommentForm() {
+function NewCommentForm({
+	opinion,
+	url,
+	callback,
+}: {
+	opinion: boolean;
+	url: string;
+	callback: () => void;
+}) {
 	const [comment, setComment] = useState("");
+	const [isUploading, setIsUploading] = useState(false);
 	return (
-		<form>
+		<form
+			onSubmit={async (e) => {
+				e.preventDefault();
+				setIsUploading(true);
+				await actor.createPremiumReview({
+					comment: comment,
+					opinion: opinion,
+					url: url,
+				});
+				setIsUploading(false);
+				callback();
+			}}
+		>
 			<input
 				type="text"
 				required
@@ -212,6 +236,7 @@ function NewCommentForm() {
 			/>
 			<button
 				dangerouslySetInnerHTML={{ __html: feather.icons.send.toSvg() }}
+				disabled={isUploading}
 			/>
 		</form>
 	);
@@ -233,6 +258,7 @@ function NormalReviewModal({
 		false,
 	]);
 
+	const [isUploading, setIsUploading] = useState(false);
 	function getSelectedCategories(): bigint[] {
 		let selected: bigint[] = [];
 		categories.forEach((value, i) => {
@@ -245,11 +271,13 @@ function NormalReviewModal({
 		<form
 			onSubmit={async (e) => {
 				e.preventDefault();
+				setIsUploading(true);
 				await actor.createNormalReview({
 					url,
 					opinion,
 					categories: getSelectedCategories(),
 				});
+				setIsUploading(false);
 				callback();
 			}}
 			style={{
@@ -268,33 +296,41 @@ function NormalReviewModal({
 					borderRadius: "8px",
 				}}
 			>
-				<p>¿Como calificarias esta pagina?</p>
-				{[0, 1, 2, 3].map((i) => (
-					<div key={i}>
-						<input
-							type="checkbox"
-							value="on"
-							onChange={(e) => {
-								let tempCategories = categories;
-								tempCategories[i] = e.target.value == "on";
-								setCategories(tempCategories);
+				{isUploading ? (
+					<TailSpin color="green" />
+				) : (
+					<>
+						<p>¿Como calificarias esta pagina?</p>
+						{[0, 1, 2, 3].map((i) => (
+							<div key={i}>
+								<input
+									type="checkbox"
+									value="on"
+									onChange={(e) => {
+										let tempCategories = categories;
+										tempCategories[i] = e.target.value == "on";
+										setCategories(tempCategories);
+									}}
+								/>
+								<label>
+									{getCategoryStringFromOpinionAndIndex(opinion, i)}
+								</label>
+							</div>
+						))}
+						<br />
+						<div
+							style={{
+								width: "100%",
+								justifyContent: "center",
+								marginBottom: "5px",
 							}}
-						/>
-						<label>{getCategoryStringFromOpinionAndIndex(opinion, i)}</label>
-					</div>
-				))}
-				<br />
-				<div
-					style={{
-						width: "100%",
-						justifyContent: "center",
-						marginBottom: "5px",
-					}}
-				>
-					<button style={{ padding: "5px", borderRadius: "4px" }}>
-						Calificar
-					</button>
-				</div>
+						>
+							<button style={{ padding: "5px", borderRadius: "4px" }}>
+								Calificar
+							</button>
+						</div>
+					</>
+				)}
 			</div>
 		</form>
 	);
