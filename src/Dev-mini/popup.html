@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <title>Página Activa</title>
+    <style>
+        body { font-family: Arial, sans-serif; color:white; background-color: darkslategrey; padding: 15px; width: 300px; }
+        input { width: 100%; padding: 5px; margin-bottom: 10px; }
+        button { width: 100%; padding: 5px; background: #007bff; color: white; border: none; cursor: pointer; }
+        button:hover { background: #0056b3; }
+        .icon { font-size: 30px; cursor: pointer; transition: color 0.3s; padding: 6px}
+        #liked { color: #00b300; }
+        #disliked { color: #b30000;}
+        .icon:hover {opacity: 0.7;}
+    </style>
+</head>
+<body>
+    <h3>Página Activa</h3>
+    <label for="titleInput">Título:</label>
+    <input type="text" id="titleInput" readonly>
+
+    <label for="urlInput">URL:</label>
+    <input type="text" id="urlInput" readonly>
+
+
+    <hr/>
+
+    <div id="review">
+        <p id="messageStatus"></p>
+        
+        <div>
+            <i class="fas fa-thumbs-up icon" id="like"></i>
+            <i class="fas fa-thumbs-down icon" id="dislike"></i>
+        </div>
+    </div>
+
+
+    <button id="submitBtn">Enviar Datos</button>
+
+    <script src="popup.js"></script>
+</body>
+</html>
