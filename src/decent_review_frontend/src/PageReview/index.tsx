@@ -48,6 +48,16 @@ export default function PageReview() {
 		fetchIdentity();
 	}, []);
 
+	function getCategoryCount(): number[] {
+		if (!reviews) return [];
+
+		let counts: number[] = [];
+		reviews.categoryCount.forEach((count, i) => {
+			counts[i] = count;
+		});
+		return counts;
+	}
+
 	const url = params.url;
 	if (!url) {
 		navigate("/");
@@ -79,34 +89,50 @@ export default function PageReview() {
 									}}
 									dangerouslySetInnerHTML={{
 										__html: feather.icons["thumbs-up"].toSvg({
-											fill: opinion == true ? "green" : "",
+											fill: opinion == true ? "green" : "white",
 											stroke: "green",
 										}),
 									}}
+									disabled={!isLoggedIn || opinion == true}
 								/>
 								<span className="like-count">{reviews.likes.toString()}</span>
 
-								<span
+								<button
+									onClick={async (e) => {
+										e.preventDefault();
+										setOpinion(false);
+										setShowPopupToReview(true);
+									}}
 									dangerouslySetInnerHTML={{
 										__html: feather.icons["thumbs-down"].toSvg({
-											fill: opinion == true ? "red" : "",
+											fill: opinion == false ? "red" : "white",
 											stroke: "red",
 										}),
 									}}
+									disabled={!isLoggedIn || opinion == false}
 								/>
 								<span className="like-count">
 									{reviews.dislikes.toString()}
 								</span>
 							</div>
+							{isLoggedIn ? (
+								<></>
+							) : (
+								"Inicia sesion con tu Internet Identity para dejar una reseña"
+							)}
 						</div>
-						<div>
-							{(reviews.categoryCount as number[]).map((count, i) => (
-								<p key={i}>
-									{getCategoryStringFromOpinionAndIndex(i < 4, i % 4)}
-									{count}
-								</p>
-							))}
-						</div>
+						<ul className="review-categories">
+							{getCategoryCount().map((count, i) => {
+								if (count == 0) return <></>;
+
+								return (
+									<li key={i}>
+										{getCategoryStringFromOpinionAndIndex(i < 4, i % 4)}:{" "}
+										{count}
+									</li>
+								);
+							})}
+						</ul>
 					</div>
 
 					<div className="reviews-container">
@@ -156,7 +182,10 @@ export default function PageReview() {
 						<NormalReviewModal
 							opinion={opinion ?? false}
 							url={url}
-							callback={() => setShowPopupToReview(false)}
+							callback={() => {
+								setShowPopupToReview(false);
+								navigate(0);
+							}}
 						/>
 					) : (
 						<></>
@@ -235,13 +264,13 @@ function NormalReviewModal({
 			<div
 				style={{
 					padding: "10px",
+					backgroundColor: "white",
 					borderRadius: "8px",
 				}}
 			>
 				<p>¿Como calificarias esta pagina?</p>
-				{Array(4).map((i) => (
+				{[0, 1, 2, 3].map((i) => (
 					<div key={i}>
-						<label>{getCategoryStringFromOpinionAndIndex(opinion, i)}</label>
 						<input
 							type="checkbox"
 							value="on"
@@ -251,6 +280,7 @@ function NormalReviewModal({
 								setCategories(tempCategories);
 							}}
 						/>
+						<label>{getCategoryStringFromOpinionAndIndex(opinion, i)}</label>
 					</div>
 				))}
 				<br />

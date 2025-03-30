@@ -46,6 +46,10 @@ main {
 	padding-left: 20px;
 }
 
+.review-categories {
+	font-size: medium;
+}
+
 /* Cabecera de la reseña (imagen de usuario y título) */
 
 .review-header {
@@ -53,9 +57,9 @@ main {
 
 	align-items: center;
 
-	gap: 15px;
-
-	padding-bottom: 20px;
+	padding-bottom: 10px;
+	padding-top: 10px;
+	height: min-content;
 }
 
 .reviews-container {
