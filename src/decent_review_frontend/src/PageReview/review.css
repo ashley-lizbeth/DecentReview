@@ -1,0 +1,184 @@
+main {
+	font-family: Arial, sans-serif;
+
+	margin: 0;
+
+	padding: 0;
+
+	background-color: #f4f4f4;
+}
+
+.main-container {
+	display: flex;
+
+	gap: 30px;
+
+	padding: 20px;
+
+	margin-top: 20px;
+
+	flex-wrap: wrap;
+}
+
+.review-container {
+	width: 100%;
+
+	max-width: 300px;
+
+	height: 500px;
+
+	padding: 15px;
+
+	background: #f8f9fa;
+
+	border-radius: 10px;
+
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Contenedor principal de la reseña */
+
+.review-likes {
+	display: flex;
+
+	flex-direction: column;
+
+	padding-left: 20px;
+}
+
+/* Cabecera de la reseña (imagen de usuario y título) */
+
+.review-header {
+	display: flex;
+
+	align-items: center;
+
+	gap: 15px;
+
+	padding-bottom: 20px;
+}
+
+.reviews-container {
+	width: 100%;
+
+	max-width: 600px;
+
+	padding: 20px;
+
+	background: #f8f9fa;
+
+	border-radius: 10px;
+
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.submit-review {
+	background-color: #262626;
+
+	color: #e9ecef;
+
+	border-radius: 5px;
+
+	width: 120px;
+
+	height: 35px;
+}
+
+.review-container:hover {
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+}
+
+.reviews-list {
+	max-height: 300px;
+
+	overflow-y: scroll;
+
+	margin-top: 10px;
+
+	padding-right: 10px;
+}
+
+.review-item {
+	background-color: #eeeeee;
+
+	border-radius: 5px;
+
+	padding: 10px;
+
+	margin-bottom: 10px;
+
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.review-item p {
+	margin: 0;
+}
+
+.reviews-container h2 {
+	font-size: 1.5em;
+
+	margin-bottom: 10px;
+}
+
+.reviews-container:hover {
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+}
+
+.review-actions {
+	display: flex;
+
+	align-items: center;
+
+	gap: 10px;
+
+	margin-top: 10px;
+}
+
+.like-count,
+.dislike-count {
+	margin: 0 5px;
+}
+
+.add-review-container {
+	width: 100%;
+
+	max-width: 300px;
+
+	padding: 20px;
+
+	background: #f8f9fa;
+
+	border-radius: 10px;
+
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.add-review-container:hover {
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+}
+
+.add-review-container h2 {
+	font-size: 1.5em;
+
+	margin-bottom: 10px;
+}
+
+form {
+	display: flex;
+
+	flex-direction: column;
+
+	gap: 15px;
+}
+
+label {
+	font-weight: bold;
+}
+
+.loading-spinner {
+	display: flex;
+	width: 100svw;
+	height: 70svh;
+	justify-content: center;
+	align-content: center;
+}
