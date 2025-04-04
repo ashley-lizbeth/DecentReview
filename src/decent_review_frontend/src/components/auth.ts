@@ -14,6 +14,7 @@ export default async function LoginWithInternetIdentity() {
 	await new Promise((resolve) => {
 		authClient.login({
 			identityProvider: process.env.II_URL,
+			allowPinAuthentication: true,
 			onSuccess: resolve,
 		});
 	});
@@ -21,7 +22,7 @@ export default async function LoginWithInternetIdentity() {
 	// At this point we're authenticated, and we can get the identity from the auth client:
 	const identity = authClient.getIdentity();
 	// Using the identity obtained from the auth client, we can create an agent to interact with the IC.
-	const agent = new HttpAgent({ identity });
+	const agent = await HttpAgent.create({ identity });
 	// Using the interface description of our webapp, we create an actor that we use to call the service methods.
 	actor = createActor(process.env.BACKEND_CANISTER_ID!, {
 		agent,

@@ -148,13 +148,14 @@ export default function PageReview() {
 												<span
 													style={{ marginRight: 10 }}
 													dangerouslySetInnerHTML={{
-														__html: review.opinion
-															? feather.icons["thumbs-up"].toSvg({
-																	fill: "green",
-															  })
-															: feather.icons["thumbs-down"].toSvg({
-																	fill: "red",
-															  }),
+														__html:
+															review.opinion == true
+																? feather.icons["thumbs-up"].toSvg({
+																		fill: "green",
+																  })
+																: feather.icons["thumbs-down"].toSvg({
+																		fill: "red",
+																  }),
 													}}
 												/>
 												{review.comment}

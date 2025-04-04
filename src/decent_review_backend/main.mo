@@ -11,6 +11,16 @@ actor {
   let premiumReviewsDB : Types.PremiumReviewDatabase = Buffer.Buffer<Types.PremiumReview>(0);
   let premiumReviewersDB : Types.PremiumReviewers = Buffer.Buffer<Principal>(0);
 
+  for (i in Iter.range(0, normalReviewsDB.size() - 1)) {
+    normalReviewsDB.add({
+      url = "www.netflix.com";
+      author = Principal.fromText("aaaaa-aa");
+      opinion = true;
+      categories = [0, 2];
+      timestamp = Time.now();
+    });
+  };
+
   public query (msg) func whoAmI() : async Principal {
     msg.caller;
   };
